@@ -1,0 +1,246 @@
+{
+	"variables": [],
+	"info": {
+		"name": "zoko",
+		"_postman_id": "7700eb19-deba-4039-20ee-e891ed1008f2",
+		"description": "",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Store insert",
+			"request": {
+				"url": "localhost:8080/store",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Beenas boutique\",\"description\":\"You will find variety of materials here\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Store get single",
+			"request": {
+				"url": "localhost:8080/store/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Store get all",
+			"request": {
+				"url": "localhost:8080/store",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "Store refresh token",
+			"request": {
+				"url": "localhost:8080/store/token/refresh",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Auth-StoreId",
+						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
+						"description": ""
+					},
+					{
+						"key": "ApiKey",
+						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "product insert",
+			"request": {
+				"url": "localhost:8080/product",
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Auth-StoreId",
+						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
+						"description": ""
+					},
+					{
+						"key": "ApiKey",
+						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"name\":\"Egyptian T-shirts\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "product update",
+			"request": {
+				"url": "localhost:8080/product",
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Auth-StoreId",
+						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
+						"description": ""
+					},
+					{
+						"key": "ApiKey",
+						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+						"description": ""
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":1,\"name\":\"Egyptian T-shirt\"}"
+				},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "product get",
+			"request": {
+				"url": "localhost:8080/product/1",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Auth-StoreId",
+						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
+						"description": ""
+					},
+					{
+						"key": "ApiKey",
+						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		},
+		{
+			"name": "product get all",
+			"request": {
+				"url": "localhost:8080/product",
+				"method": "GET",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json",
+						"description": ""
+					},
+					{
+						"key": "X-Auth-StoreId",
+						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
+						"description": ""
+					},
+					{
+						"key": "ApiKey",
+						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+						"description": ""
+					}
+				],
+				"body": {},
+				"description": ""
+			},
+			"response": []
+		}
+	]
+}
