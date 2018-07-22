@@ -14,7 +14,7 @@ public interface StoreService {
 
     Store insert(@Valid Store store);
 
-    StoreAuth refreshToken(Long storeId);
+    StoreAuth refreshToken(String storeId);
 
     <T> Optional<Store> findById(@NotNull Long storeId);
 

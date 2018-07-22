@@ -35,8 +35,9 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public StoreAuth refreshToken(Long storeId) {
-        Store store = storeRepository.findById(storeId).orElseThrow(() -> new ResourceNotFoundException("store", "id", storeId));
+    public StoreAuth refreshToken(String storeId) {
+        Store store = storeRepository.findByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("store", "id", storeId));
+
         return tokenService.refresh(store);
     }
 

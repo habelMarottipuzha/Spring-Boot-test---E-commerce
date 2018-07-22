@@ -38,8 +38,7 @@ public class TokenServiceImpl implements TokenService {
             StoreAuth storeAuth = storeAuthOptional.get();
             if (!storeAuth.isEnabled()) throw new RuntimeException("Resource disabled/Expired");
             storeAuth.setApiKey(UUID.randomUUID().toString());
-            storeAuthRepository.save(storeAuth);
-            return storeAuth;
+            return storeAuthRepository.save(storeAuth);
 
         } else throw new ResourceNotFoundException("auth", "storeId", store.getApiId());
 

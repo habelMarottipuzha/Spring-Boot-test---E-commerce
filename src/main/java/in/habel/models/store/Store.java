@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Indexed;
 
 import javax.persistence.Entity;
+import javax.persistence.Index;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
@@ -13,7 +14,9 @@ import javax.validation.constraints.NotEmpty;
 @Data
 @Entity
 @Indexed
-@Table(name = "store")
+@Table(name = "store", indexes = {
+        @Index(columnList = "apiId", name = "idx_api_id")
+})
 public class Store extends AuditModel {
     @NotEmpty
     private String name;

@@ -1,5 +1,6 @@
 package in.habel.resources;
 
+import in.habel.annotations.CurrentStore;
 import in.habel.exceptions.ResourceNotFoundException;
 import in.habel.models.StoreAuth;
 import in.habel.models.store.Store;
@@ -13,7 +14,7 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
-@RequestMapping(produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
+@RequestMapping(value = "store", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 @RestController
 @PermitAll
 public class StoreResource {
@@ -21,24 +22,24 @@ public class StoreResource {
     StoreService storeService;
 
 
-    @GetMapping("store")
+    @GetMapping
     public List<Store> getAllStore() {
         return storeService.findAllPaginated(null);
     }
 
-    @PostMapping("store")
+    @PostMapping
     public Store addStore(@Valid @RequestBody Store store) {
         return storeService.insert(store);
     }
 
-    @GetMapping(value = "store/{id}")
+    @GetMapping(value = "{id}")
     public Store getStoreById(@NotNull @PathVariable Long id) {
         return storeService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("store", "id", id));
     }
 
-    @GetMapping(value = "store/token/refresh")
-    public StoreAuth generateStoreToken() {
-        return storeService.refreshToken(1L);
+    @GetMapping(value = "token/refresh")
+    public StoreAuth generateStoreToken(@CurrentStore String storeId) {
+        return storeService.refreshToken(storeId);
     }
 }
