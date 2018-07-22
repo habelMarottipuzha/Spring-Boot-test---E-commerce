@@ -28,14 +28,14 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product insert(@Valid Product product, String storeId) {
-        Store store = storeService.findByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+        Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
         product.setStore(store);
         return productRepository.save(product);
     }
 
     @Override
-    public <T> Product updateProduct(Product product, String storeId) {
-        Store store = storeService.findByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+    public Product updateProduct(Product product, String storeId) {
+        Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
 // Check whether product belongs to same store apiId
         Product existingProd;
         try {
@@ -52,14 +52,14 @@ public class ProductServiceImpl implements ProductService {
     }
 
     @Override
-    public <T> Optional<Product> getProduct(Long productId, String storeId) {
-        Store store = storeService.findByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+    public Optional<Product> getProduct(Long productId, String storeId) {
+        Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
 // Check product belongs to same store
         return productRepository.findByIdAndStore(productId, store);
     }
 
-    public <T> Optional<List<Product>> getAllPaginated(Pageable pageable, String storeId) {
-        Store store = storeService.findByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
+    public Optional<List<Product>> getAllPaginated(Pageable pageable, String storeId) {
+        Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
 
         return productRepository.findAllByStore(store);
     }

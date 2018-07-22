@@ -24,7 +24,7 @@ public class StoreResource {
 
     @GetMapping
     public List<Store> getAllStore() {
-        return storeService.findAllPaginated(null);
+        return storeService.getAllStores(null);
     }
 
     @PostMapping
@@ -34,7 +34,7 @@ public class StoreResource {
 
     @GetMapping(value = "{id}")
     public Store getStoreById(@NotNull @PathVariable Long id) {
-        return storeService.findById(id)
+        return storeService.getStore(id)
                 .orElseThrow(() -> new ResourceNotFoundException("store", "id", id));
     }
 

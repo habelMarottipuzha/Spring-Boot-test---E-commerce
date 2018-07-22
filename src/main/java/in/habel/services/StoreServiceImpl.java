@@ -42,18 +42,18 @@ public class StoreServiceImpl implements StoreService {
     }
 
     @Override
-    public <T> Optional<Store> findById(Long storeId) {
+    public Optional<Store> getStore(Long storeId) {
         return storeRepository.findById(storeId);
     }
 
     @Override
-    public <T> Optional<Store> findByApiId(String apiId) {
+    public Optional<Store> getStoreByApiId(String apiId) {
         return storeRepository.findByApiId(apiId);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public <T> List<Store> findAllPaginated(Pageable pageable) {
+    public List<Store> getAllStores(Pageable pageable) {
 
         return storeRepository.findAll();
     }
