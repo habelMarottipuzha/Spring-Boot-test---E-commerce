@@ -35,7 +35,7 @@ public class StoreResource {
                 .orElseThrow(() -> new ResourceNotFoundException("store", "id", id));
     }
 
-    @GetMapping(value = "storeId/{storeId}/refresh")
+    @GetMapping(value = "{storeId}/refresh")
     public StoreAuth generateStoreToken(@PathVariable String storeId) {
         return storeService.refreshToken(storeId);
     }

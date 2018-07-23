@@ -22,6 +22,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"description": ""
+                    },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic YWRtaW46cGFzc3dvcmQ=",
+                    "description": ""
 					}
 				],
 				"body": {
@@ -47,6 +52,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"description": ""
+                    },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic YWRtaW46cGFzc3dvcmQ=",
+                    "description": ""
 					}
 				],
 				"body": {},
@@ -69,6 +79,11 @@
 						"key": "Content-Type",
 						"value": "application/json",
 						"description": ""
+                    },
+                  {
+                    "key": "Authorization",
+                    "value": "Basic YWRtaW46cGFzc3dvcmQ=",
+                    "description": ""
 					}
 				],
 				"body": {},
@@ -79,7 +94,7 @@
 		{
 			"name": "Store refresh token",
 			"request": {
-				"url": "localhost:8080/store/token/refresh",
+              "url": "localhost:8080/store/5ebfddd1-553c-4ec1-8dc5-61886bfd8374/refresh",
 				"method": "GET",
 				"header": [
 					{
@@ -93,13 +108,8 @@
 						"description": ""
 					},
 					{
-						"key": "X-Auth-StoreId",
-						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
-						"description": ""
-					},
-					{
-						"key": "ApiKey",
-						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+                      "key": "Authorization",
+                      "value": "Basic YWRtaW46cGFzc3dvcmQ=",
 						"description": ""
 					}
 				],
@@ -126,18 +136,18 @@
 					},
 					{
 						"key": "X-Auth-StoreId",
-						"value": "5ebfddd1-553c-4ec1-8dc5-61886bfd8374",
+                      "value": "e8333c58-abbd-47fa-9505-9e5faf6f1cdd",
 						"description": ""
 					},
 					{
-						"key": "ApiKey",
-						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
+                      "key": "X-Auth-StoreKey",
+                      "value": "759c5405-729b-4d17-9868-e293b809ce17",
 						"description": ""
 					}
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\"name\":\"Egyptian T-shirts\"}"
+                  "raw": "{\"name\":\"World cup shots\"}"
 				},
 				"description": ""
 			},
@@ -165,7 +175,7 @@
 						"description": ""
 					},
 					{
-						"key": "ApiKey",
+                      "key": "X-Auth-StoreKey",
 						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
 						"description": ""
 					}
@@ -200,7 +210,7 @@
 						"description": ""
 					},
 					{
-						"key": "ApiKey",
+                      "key": "X-Auth-StoreKey",
 						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
 						"description": ""
 					}
@@ -232,7 +242,7 @@
 						"description": ""
 					},
 					{
-						"key": "ApiKey",
+                      "key": "X-Auth-StoreKey",
 						"value": "300b20a8-7508-4c6b-a9e2-d466be4890f7",
 						"description": ""
 					}
