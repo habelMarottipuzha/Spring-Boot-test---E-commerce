@@ -1,4 +1,4 @@
-package in.habel.security;
+package in.habel.security.user;
 
 import in.habel.models.StoreAuth;
 import org.apache.commons.lang3.StringUtils;
@@ -22,17 +22,12 @@ public class TokenAuthenticationProvider implements AuthenticationProvider {
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
         String apiId = (String) authentication.getPrincipal();
         String apiKey = (String) authentication.getCredentials();
-        if (StringUtils.isBlank(apiId)) {
-            throw new BadCredentialsException("Invalid store id");
-        }
-        if (StringUtils.isBlank(apiKey)) {
-            throw new BadCredentialsException("Invalid api key");
-        }
+        if (StringUtils.isBlank(apiId)) throw new BadCredentialsException("Invalid store id");
+        if (StringUtils.isBlank(apiKey)) throw new BadCredentialsException("Invalid api key");
         Optional<StoreAuth> optionalStoreAuth = tokenService.contains(apiId, apiKey);
         if (!optionalStoreAuth.isPresent()) {
             authentication.setAuthenticated(false);
         }
-
         return authentication;
     }
 

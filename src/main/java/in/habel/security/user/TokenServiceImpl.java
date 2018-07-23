@@ -1,4 +1,4 @@
-package in.habel.security;
+package in.habel.security.user;
 
 import in.habel.exceptions.ResourceNotFoundException;
 import in.habel.models.StoreAuth;

@@ -1,4 +1,4 @@
-package in.habel.security;
+package in.habel.security.user;
 
 import in.habel.models.StoreAuth;
 import in.habel.models.store.Store;

@@ -1,4 +1,4 @@
-package in.habel.security;
+package in.habel.security.user;
 
 import in.habel.exceptions.UnauthenticatedException;
 import org.slf4j.Logger;
@@ -25,8 +25,8 @@ import java.util.Optional;
 
 public class AuthenticationFilter extends GenericFilterBean {
 
-    public static final String TOKEN_SESSION_KEY = "token";
-    public static final String USER_SESSION_KEY = "user";
+    public static final String AUTH_STORE_ID = "X-Auth-StoreId";
+    public static final String AUTH_STORE_KEY = "X-Auth-StoreKey";
     private final static Logger logger = LoggerFactory.getLogger(AuthenticationFilter.class);
     private AuthenticationManager authenticationManager;
 
@@ -39,8 +39,8 @@ public class AuthenticationFilter extends GenericFilterBean {
         HttpServletRequest httpRequest = asHttp(request);
         HttpServletResponse httpResponse = asHttp(response);
 
-        Optional<String> apiId = Optional.ofNullable(httpRequest.getHeader("X-Auth-StoreId"));
-        Optional<String> apiKey = Optional.ofNullable(httpRequest.getHeader("ApiKey"));
+        Optional<String> apiId = Optional.ofNullable(httpRequest.getHeader(AUTH_STORE_ID));
+        Optional<String> apiKey = Optional.ofNullable(httpRequest.getHeader(AUTH_STORE_KEY));
 
         String resourcePath = new UrlPathHelper().getPathWithinApplication(httpRequest);
 
@@ -48,13 +48,11 @@ public class AuthenticationFilter extends GenericFilterBean {
 
 
             if (apiKey.isPresent() && apiId.isPresent()) {
-                logger.debug("Trying to authenticate user by X-Auth-Token method. Token: {}", apiId);
+                logger.debug("Trying to authenticate user by {} : {} and {} : {} header", AUTH_STORE_ID, apiId, AUTH_STORE_KEY, apiKey);
                 processTokenAuthentication(apiId, apiKey);
             }
 
-            logger.debug("AuthenticationFilter is passing request down the filter chain",
-                    SecurityContextHolder.getContext().getAuthentication());
-            //addSessionContextToLogging();
+            logger.debug("AuthenticationFilter is passing request down the filter chain");
             chain.doFilter(request, response);
         } catch (InternalAuthenticationServiceException internalAuthenticationServiceException) {
             SecurityContextHolder.clearContext();
@@ -64,23 +62,11 @@ public class AuthenticationFilter extends GenericFilterBean {
             SecurityContextHolder.clearContext();
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
         } finally {
-            MDC.remove(TOKEN_SESSION_KEY);
-            MDC.remove(USER_SESSION_KEY);
+            MDC.remove(AUTH_STORE_ID);
+            MDC.remove(AUTH_STORE_KEY);
         }
     }
-/*
-    private void addSessionContextToLogging() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        String tokenValue = "EMPTY";
 
-        MDC.put(TOKEN_SESSION_KEY, tokenValue);
-
-        String userValue = "EMPTY";
-        if (authentication != null && !Strings.isNullOrEmpty(authentication.getPrincipal().toString())) {
-            userValue = authentication.getPrincipal().toString();
-        }
-        MDC.put(USER_SESSION_KEY, userValue);
-    }*/
 
     private HttpServletRequest asHttp(ServletRequest request) {
         return (HttpServletRequest) request;
@@ -97,7 +83,7 @@ public class AuthenticationFilter extends GenericFilterBean {
     }
 
     private Authentication tryToAuthenticateWithToken(Optional<String> token, Optional<String> apiKey) {
-        PreAuthenticatedAuthenticationToken requestAuthentication = new PreAuthenticatedAuthenticationToken(token.get(), apiKey.get(), Collections.singletonList(() -> "USER"));
+        PreAuthenticatedAuthenticationToken requestAuthentication = new PreAuthenticatedAuthenticationToken(token.get(), apiKey.get(), Collections.singletonList(() -> "ROLE_USER"));
         requestAuthentication.setAuthenticated(true);
         return tryToAuthenticate(requestAuthentication);
     }

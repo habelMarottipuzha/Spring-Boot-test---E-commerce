@@ -4,7 +4,7 @@ import in.habel.exceptions.ResourceNotFoundException;
 import in.habel.models.StoreAuth;
 import in.habel.models.store.Store;
 import in.habel.repositories.StoreRepository;
-import in.habel.security.TokenServiceImpl;
+import in.habel.security.user.TokenServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;

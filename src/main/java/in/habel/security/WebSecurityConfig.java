@@ -1,5 +1,9 @@
 package in.habel.security;
 
+import in.habel.security.user.AuthenticationFilter;
+import in.habel.security.user.TokenAuthenticationProvider;
+import in.habel.security.user.TokenService;
+import in.habel.security.user.TokenServiceImpl;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +15,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -26,26 +32,41 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private TokenService tokenService;
 
+    @Autowired
+    private BaseAuthEntryPoint authEntryPoint;
+
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
-        http.csrf().disable()
+/**
+ *Here
+ */
+        http
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/store", "/store/**").permitAll()
-                .antMatchers("/product", "/product/**").authenticated()
+                .antMatchers("/store", "/store/**").access("hasAuthority('ROLE_ADMIN')")
+                .and().httpBasic().authenticationEntryPoint(authEntryPoint)
+                .and().authorizeRequests()
+                .antMatchers("/product", "/product/**").hasAnyAuthority("ROLE_USER")
                 .and().exceptionHandling().authenticationEntryPoint(unauthorizedEntryPoint());
 
 
-         http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
+        http.addFilterBefore(new AuthenticationFilter(authenticationManager()), BasicAuthenticationFilter.class);
 
+    }
 
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
     }
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(tokenAuthenticationProvider());
+        auth.inMemoryAuthentication()
+                .withUser("admin")
+                .password(passwordEncoder().encode("password"))
+                .authorities("ROLE_ADMIN");
     }
 
     @Bean

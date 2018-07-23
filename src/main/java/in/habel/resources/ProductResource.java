@@ -6,6 +6,8 @@ import in.habel.models.store.Product;
 import in.habel.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,6 +40,7 @@ public class ProductResource {
 
     @GetMapping(value = "{id}")
     public Product getProduct(@CurrentStore String storeId, @NotNull @PathVariable Long id) {
+        Authentication a = SecurityContextHolder.getContext().getAuthentication();
         return productService.getProduct(id, storeId)
                 .orElseThrow(() -> new ResourceNotFoundException("Product not found"));
     }
