@@ -28,15 +28,20 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Store insert(@Valid Store store) {
-        store.setApiId(UUID.randomUUID().toString());
+        store.setStoreId(UUID.randomUUID().toString());
         storeRepository.save(store);
         tokenService.create(store);
         return store;
     }
 
     @Override
+    public void update(Store store) {
+        storeRepository.save(store);
+    }
+
+    @Override
     public StoreAuth refreshToken(String storeId) {
-        Store store = storeRepository.findByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("store", "id", storeId));
+        Store store = storeRepository.findByStoreId(storeId).orElseThrow(() -> new ResourceNotFoundException("store", "id", storeId));
 
         return tokenService.refresh(store);
     }
@@ -48,7 +53,7 @@ public class StoreServiceImpl implements StoreService {
 
     @Override
     public Optional<Store> getStoreByApiId(String apiId) {
-        return storeRepository.findByApiId(apiId);
+        return storeRepository.findByStoreId(apiId);
     }
 
     @Override

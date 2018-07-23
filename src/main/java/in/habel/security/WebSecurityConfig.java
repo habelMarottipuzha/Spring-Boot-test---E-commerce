@@ -38,7 +38,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 
-        http
+        http.csrf().disable()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
@@ -79,11 +79,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Bean
     public AuthenticationEntryPoint unauthorizedEntryPoint() {
-        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED);
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_UNAUTHORIZED, authException.getLocalizedMessage());
     }
 
     @Bean
     public AuthenticationEntryPoint forbiddenEntryPoint() {
-        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_FORBIDDEN);
+        return (request, response, authException) -> response.sendError(HttpServletResponse.SC_FORBIDDEN, authException.getLocalizedMessage());
     }
 }

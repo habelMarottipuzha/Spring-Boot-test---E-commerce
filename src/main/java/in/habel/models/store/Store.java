@@ -15,15 +15,13 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Indexed
 @Table(name = "store", indexes = {
-        @Index(columnList = "apiId", name = "idx_api_id")
+        @Index(columnList = "storeId", name = "idx_store_id")
 })
 public class Store extends AuditModel {
     @NotEmpty
     private String name;
     private String description;
 
-    private String apiId;
-/*
-    @OneToMany(mappedBy = "store", fetch = FetchType.LAZY)
-    private Set<Product> products;*/
+    private String storeId;
+
 }

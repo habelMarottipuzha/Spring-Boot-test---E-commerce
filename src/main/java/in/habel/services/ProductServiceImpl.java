@@ -10,6 +10,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -30,13 +31,14 @@ public class ProductServiceImpl implements ProductService {
     public Product insert(@Valid Product product, String storeId) {
         Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
         product.setStore(store);
-        return productRepository.save(product);
+        productRepository.save(product);
+        return product;
     }
 
     @Override
     public Product updateProduct(Product product, String storeId) {
         Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
-// Check whether product belongs to same store apiId
+// Check whether product belongs to same store storeId
         Product existingProd;
         try {
             existingProd = productRepository.findById(product.getId())
@@ -58,9 +60,9 @@ public class ProductServiceImpl implements ProductService {
         return productRepository.findByIdAndStore(productId, store);
     }
 
-    public Optional<List<Product>> getAllPaginated(Pageable pageable, String storeId) {
+    public List<Product> getAllPaginated(Pageable pageable, String storeId) {
         Store store = storeService.getStoreByApiId(storeId).orElseThrow(() -> new ResourceNotFoundException("Store not found"));
 
-        return productRepository.findAllByStore(store);
+        return productRepository.findAllByStore(store).orElse(new ArrayList<>());
     }
 }

@@ -50,4 +50,6 @@ public interface StoreService {
      * @return new auth credentials
      */
     StoreAuth refreshToken(String storeId);
+
+    void update(Store store);
 }

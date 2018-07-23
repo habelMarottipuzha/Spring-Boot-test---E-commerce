@@ -17,15 +17,15 @@ public class TokenServiceImpl implements TokenService {
 
 
     public Optional<StoreAuth> contains(String apiId, String apiKey) {
-        return storeAuthRepository.findByApiIdAndApiKeyAndEnabledTrue(apiId, apiKey);
+        return storeAuthRepository.findByStoreIdAndStoreKeyAndEnabledTrue(apiId, apiKey);
     }
 
     @Override
     public StoreAuth create(Store store) {
-        storeAuthRepository.disable(store.getApiId());
+        storeAuthRepository.disable(store.getStoreId());
         StoreAuth storeAuth = new StoreAuth();
-        storeAuth.setApiId(store.getApiId());
-        storeAuth.setApiKey(UUID.randomUUID().toString());
+        storeAuth.setStoreId(store.getStoreId());
+        storeAuth.setStoreKey(UUID.randomUUID().toString());
         storeAuth.setEnabled(true);
         storeAuthRepository.save(storeAuth);
         return storeAuth;
@@ -33,14 +33,14 @@ public class TokenServiceImpl implements TokenService {
 
     @Override
     public StoreAuth refresh(Store store) {
-        Optional<StoreAuth> storeAuthOptional = Optional.ofNullable(storeAuthRepository.findByApiId(store.getApiId()));
+        Optional<StoreAuth> storeAuthOptional = Optional.ofNullable(storeAuthRepository.findByStoreId(store.getStoreId()));
         if (storeAuthOptional.isPresent()) {
             StoreAuth storeAuth = storeAuthOptional.get();
             if (!storeAuth.isEnabled()) throw new RuntimeException("Resource disabled/Expired");
-            storeAuth.setApiKey(UUID.randomUUID().toString());
+            storeAuth.setStoreKey(UUID.randomUUID().toString());
             return storeAuthRepository.save(storeAuth);
 
-        } else throw new ResourceNotFoundException("auth", "storeId", store.getApiId());
+        } else throw new ResourceNotFoundException("auth", "storeId", store.getStoreId());
 
     }
 

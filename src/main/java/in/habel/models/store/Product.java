@@ -6,7 +6,10 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Indexed;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
 
 @EqualsAndHashCode(callSuper = true)
@@ -21,7 +24,6 @@ public class Product extends AuditModel {
 
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn
     @JsonBackReference
     private Store store;
 }

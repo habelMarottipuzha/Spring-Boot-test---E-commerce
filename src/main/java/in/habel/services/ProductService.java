@@ -22,7 +22,7 @@ public interface ProductService {
      * Fetch a single product
      *
      * @param productId id of the product
-     * @param storeId   apiId of store
+     * @param storeId   storeId of store
      * @return Product
      */
     Optional<Product> getProduct(@NotNull Long productId, String storeId);
@@ -42,5 +42,5 @@ public interface ProductService {
      * @param storeId ApiId of store
      * @return prodducts list
      */
-    Optional<List<Product>> getAllPaginated(Pageable pageable, String storeId);
+    List<Product> getAllPaginated(Pageable pageable, String storeId);
 }

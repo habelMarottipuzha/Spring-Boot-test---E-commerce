@@ -61,6 +61,7 @@ public class AuthenticationFilter extends GenericFilterBean {
         } catch (UnauthenticatedException authenticationException) {
             SecurityContextHolder.clearContext();
             httpResponse.sendError(HttpServletResponse.SC_UNAUTHORIZED, authenticationException.getMessage());
+            // throw authenticationException;
         } finally {
             MDC.remove(AUTH_STORE_ID);
             MDC.remove(AUTH_STORE_KEY);
@@ -91,7 +92,7 @@ public class AuthenticationFilter extends GenericFilterBean {
     private Authentication tryToAuthenticate(Authentication requestAuthentication) throws AuthenticationException {
         Authentication responseAuthentication = authenticationManager.authenticate(requestAuthentication);
         if (responseAuthentication == null || !responseAuthentication.isAuthenticated()) {
-            throw new UnauthenticatedException("Unable to authenticate Domain User for provided credentials");
+            throw new UnauthenticatedException("Bad credentials");
         }
         logger.debug("User successfully authenticated");
         return responseAuthentication;

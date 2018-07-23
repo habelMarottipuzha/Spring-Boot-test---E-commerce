@@ -13,11 +13,11 @@ import javax.persistence.Table;
 @Entity
 @Indexed
 @Table(name = "auth", indexes = {
-        @Index(columnList = "apiId", name = "idx_api_id"),
-        @Index(columnList = "apiKey", name = "idx_api_key")
+        @Index(columnList = "storeId", name = "idx_store_id"),
+        @Index(columnList = "storeKey", name = "idx_store_key")
 })
 public class StoreAuth extends AuditModel {
-    private String apiId;
-    private String apiKey;
+    private String storeId;
+    private String storeKey;
     private boolean enabled;
 }

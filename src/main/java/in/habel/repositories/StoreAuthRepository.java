@@ -14,17 +14,17 @@ import java.util.Optional;
 @Transactional
 @Repository
 public interface StoreAuthRepository extends JpaRepository<StoreAuth, Long>, CrudRepository<StoreAuth, Long> {
-    StoreAuth findByApiKey(String apiKey);
+    StoreAuth findByStoreKey(String storeKey);
 
-    StoreAuth findByApiId(String apiKey);
+    StoreAuth findByStoreId(String storeId);
 
     @Modifying
-    @Query("UPDATE StoreAuth s SET s.enabled = false WHERE s.apiId = :apiId")
-    int disable(@Param("apiId") String apiId);
+    @Query("UPDATE StoreAuth s SET s.enabled = false WHERE s.storeId = :storeId")
+    int disable(@Param("storeId") String storeId);
 
 
-    @Query("SELECT apiKey,apiId FROM StoreAuth  s WHERE s.apiId = :apiId and s.apiKey = :apiKey and s.enabled = true")
-    StoreAuth valid(@Param("apiId") String apiId, @Param("apiKey") String apiKey);
+    @Query("SELECT storeKey,storeId FROM StoreAuth  s WHERE s.storeId = :storeId and s.storeKey = :storeKey and s.enabled = true")
+    StoreAuth valid(@Param("storeId") String storeId, @Param("storeKey") String storeKey);
 
-    Optional<StoreAuth> findByApiIdAndApiKeyAndEnabledTrue(String apiId, String apiKey);
+    Optional<StoreAuth> findByStoreIdAndStoreKeyAndEnabledTrue(String storeId, String storeKey);
 }
