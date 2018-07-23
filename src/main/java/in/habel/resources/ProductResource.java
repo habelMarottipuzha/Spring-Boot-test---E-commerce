@@ -17,7 +17,6 @@ import java.util.Optional;
 
 @RequestMapping(value = "product", produces = MediaType.APPLICATION_JSON_VALUE, consumes = MediaType.APPLICATION_JSON_VALUE)
 @RestController
-
 public class ProductResource {
     @Autowired
     ProductService productService;
