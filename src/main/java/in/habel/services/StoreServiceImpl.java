@@ -34,6 +34,7 @@ public class StoreServiceImpl implements StoreService {
         return store;
     }
 
+
     @Override
     public void update(Store store) {
         storeRepository.save(store);

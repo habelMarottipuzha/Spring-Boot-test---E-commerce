@@ -3,6 +3,7 @@ package in.habel.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
@@ -23,18 +24,18 @@ import java.util.Date;
 public abstract class AuditModel implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @ApiModelProperty(notes = "The database generated product ID")
     private Long id;
 
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false, updatable = false)
     @CreatedDate
     private Date createdAt;
-
-
     @Temporal(TemporalType.TIMESTAMP)
     @Column(nullable = false)
     @LastModifiedDate
     private Date updatedAt;
+
 
 }
 

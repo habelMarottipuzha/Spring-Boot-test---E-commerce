@@ -2,6 +2,8 @@ package in.habel.models.store;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import in.habel.models.AuditModel;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.springframework.stereotype.Indexed;
@@ -17,13 +19,16 @@ import javax.validation.constraints.NotEmpty;
 @Entity
 @Indexed
 @Table(name = "product")
+@ApiModel(value = "Product", description = "Product model")
+
 public class Product extends AuditModel {
 
     @NotEmpty
     private String name;
-
-
     @ManyToOne(fetch = FetchType.LAZY)
     @JsonBackReference
+    @ApiModelProperty(hidden = true)
     private Store store;
+
+
 }

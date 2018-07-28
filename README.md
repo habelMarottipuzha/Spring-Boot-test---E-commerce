@@ -47,3 +47,7 @@
 | method   | request                              | description                  |  
 |--------  |----------------------------------    |--------------------------    |   
 | GET      | http://localhost:8080/store/{storeId}/refresh     | Refresh existing ApiKey     | 
+
+
+## API Documentation by swagger
+http://localhost:8080/swagger-ui.html
